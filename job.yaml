@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ci-playground
+  namespace: default
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 300   # 👈 auto-clean after 5 minutes
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: ghcr-credentials
+      containers:
+        - name: app
+          image: ghcr.io/kle6404/ci-playground:sha-PLACEHOLDER
